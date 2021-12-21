@@ -1,8 +1,8 @@
 filename = 'C:\Users\Amairo\Desktop\10pi.txt';
 mk=(fileread(filename)); 
-char2asc2=abs(mk);%×ªasciiÂë
-char2asc2(char2asc2==13)=[];%É¾³ı»Ø³µĞĞ
-char2asc2(char2asc2==10)=[];%É¾³ı»»ĞĞ·û
+char2asc2=abs(mk);%è½¬asciiç 
+char2asc2(char2asc2==13)=[];%åˆ é™¤å›è½¦è¡Œ
+char2asc2(char2asc2==10)=[];%åˆ é™¤æ¢è¡Œç¬¦
 mk=char(char2asc2);
 
 L = strlength(mk);
