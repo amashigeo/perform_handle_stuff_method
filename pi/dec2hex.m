@@ -25,4 +25,4 @@ for j=2:1:L
 end
 filename =fopen( 'C:\Users\Amairo\Desktop\1.txt','w');
 fprintf(filename,mk4);
-fclose(filename); 作者：Fiola_Doleyca https://www.bilibili.com/read/cv12140861?spm_id_from=333.999.0.0 出处：bilibili
+fclose(filename);
