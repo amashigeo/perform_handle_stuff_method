@@ -1,5 +1,5 @@
 pro badpoint_gf4
-
+;亦可根据周围坏点数量来平均
   filename=dialog_pickfile(filter='*.*',/read,/multiple)
   number=size(filename)
   num=number[3]
