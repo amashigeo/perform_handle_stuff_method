@@ -4,13 +4,15 @@
 %需要修改的参数
 num=100;%MC次数
 
-wl=800;%光线波长 nm
+wl=653;%光线波长 nm
 resolution=100;%大气分层分辨率 m
 
 photon=zeros(7,1);
 photon=photon';
 %坐标x,y,z,方向矢量xyz(归一化到1,强度（一开始为1）
-disk=zeros(4001,4001);%km
+halfdisk=200;
+diskreso=2000/halfdisk*1000;
+disk=zeros(halfdisk*2+1,halfdisk*2+1);%km
 
 
 %%初始化大气参数————————————————————————————————
@@ -73,8 +75,8 @@ for incii=1:num
 
         destin=METHOD_TRACE(photon,atmosrefi,resolution,atmossact);%destin的1，2分别为y，z
         if abs(destin(1)-6500000) <=2000000 && abs(destin(2)) <=2000000
-            destx=fix((destin(1)-6500000)/1000)+2001;
-            desty=fix(destin(2)/1000)+2001;
+            destx=fix((destin(1)-6500000)/diskreso)+halfdisk+1;
+            desty=fix(destin(2)/diskreso)+halfdisk+1;
             disk(destx,desty)=disk(destx,desty)+destin(3);
         end
     end   
