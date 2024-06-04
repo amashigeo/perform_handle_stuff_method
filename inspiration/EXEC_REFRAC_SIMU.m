@@ -2,16 +2,17 @@
 %MC 月球分块统计 瑞利散射
 
 %需要修改的参数
-num=100;%MC次数
+num=10000000;%MC次数
 
-wl=653;%光线波长 nm
+wl=653;%光线波长 nm %红653 蓝491
 resolution=100;%大气分层分辨率 m
+diskrange=2000;
 
 photon=zeros(7,1);
 photon=photon';
 %坐标x,y,z,方向矢量xyz(归一化到1,强度（一开始为1）
-halfdisk=200;
-diskreso=2000/halfdisk*1000;
+halfdisk=50;
+diskreso=diskrange/halfdisk*1000;
 disk=zeros(halfdisk*2+1,halfdisk*2+1);%km
 
 
@@ -74,17 +75,22 @@ for incii=1:num
         photon(7)=1;
 
         destin=METHOD_TRACE(photon,atmosrefi,resolution,atmossact);%destin的1，2分别为y，z
-        if abs(destin(1)-6500000) <=2000000 && abs(destin(2)) <=2000000
+        if abs(destin(1)-6500000) <=diskrange*1000 && abs(destin(2)) <=diskrange*1000
             destx=fix((destin(1)-6500000)/diskreso)+halfdisk+1;
             desty=fix(destin(2)/diskreso)+halfdisk+1;
             disk(destx,desty)=disk(destx,desty)+destin(3);
         end
     end   
 end
+disk=disk';%因为mat的x是竖的轴，需对调
 
+%disk=disk*(halfdisk*2+1)^2/num*0.232 %红0.232 蓝0.173
 surf(disk);
 shading flat
 view(0,90);
 colorbar;
-% axis([1 xnum 1 ynum])
+axis([1 halfdisk*2+1 1 halfdisk*2+1])
 % axis off
+
+%disk653_1kw=disk;
+%save("C:\Users\lycen\Desktop\月食\disk653_100w.mat","disk653_100w")
